@@ -1,0 +1,20 @@
+{
+  "name": "blog-2024",
+  "version": "1.0.0",
+  "description": "Personal Blog (2024)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev:back": "npm --prefix back run dev",
+    "dev:front": "npm --prefix front run dev",
+    "build:back": "npm --prefix back run build",
+    "build:front": "npm --prefix front run build"
+  },
+  "keywords": [],
+  "author": "Antoine.rmd",
+  "license": "ISC",
+  "workspaces": [
+    "back",
+    "front"
+  ]
+}
