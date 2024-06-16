@@ -4,17 +4,19 @@
         "esModuleInterop": true,
         "forceConsistentCasingInFileNames": true,
         "jsx": "preserve",
-        "target": "es2016",
-        "module": "commonjs",
+        "target": "es6",
+        "module": "ES2020",
         "moduleDetection": "force",
+        "moduleResolution": "Node",
         "outDir": "./built",
+        "rootDir": "./src",
         "skipLibCheck": true,
         "strict": true
     },
     "include": [
-        "./"
+        "./src/**/*.ts"
     ],
     "exclude": [
-        "./node_modules"
+        "./node_modules", ".vscode"
     ]
 }
