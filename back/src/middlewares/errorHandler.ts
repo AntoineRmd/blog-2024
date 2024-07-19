@@ -1,18 +1,12 @@
 import { NextFunction, Request, Response } from "express";
+import ApiError from "../utils/ApiError";
 
-// TS
-interface ResponseError extends Error {
-    statusCode?: number;
-}
-
-function errorHandler(err: ResponseError, req: Request, res: Response, next: NextFunction) {
-    console.log("Middleware Error Handling: A server error occured.", err);
-    const errStatus = err.statusCode || 500;
-    const errMessage = err.message || 'Something went wrong';
-    res.status(errStatus).json({
+function errorHandler(err: ApiError, req: Request, res: Response, next: NextFunction) {
+    const statusCode = err.statusCode || 500;
+    const message = err.message || 'Something went wrong';
+    res.status(statusCode).json({
         success: false,
-        status: errStatus,
-        message: errMessage,
+        message: message,
         stack: process.env.NODE_ENV === 'development' ? err.stack : {}
     })
 }

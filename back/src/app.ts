@@ -31,7 +31,7 @@ app.use('/api/auth', authRoutes);
 // app.use('/api/posts', postRoutes);
 // app.use('/api/user', userRoutes);
 
-// Error Handler
+// Error Handler End Middleware
 app.use(errorHandler);
 
 export default app;
