@@ -2,7 +2,6 @@ import { Request, Response, NextFunction } from 'express';
 import UserModel from '../models/User';
 import ClientError from '../utils/ClientError';
 import bcrypt from 'bcrypt';
-import keys from '../config/keys';
 import ResponseHelper from '../utils/responseHelper';
 
 async function register(req: Request, res: Response, next: NextFunction) {
@@ -12,7 +11,8 @@ async function register(req: Request, res: Response, next: NextFunction) {
         if (doesExist !== null) {
             throw ClientError.usernameTaken();
         }
-        const hashedPassword = bcrypt.hash(password, keys.salt);
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password, salt);
         const newUser = await UserModel.create({username, password: hashedPassword});
         ResponseHelper.successRegister(res, newUser);
         
