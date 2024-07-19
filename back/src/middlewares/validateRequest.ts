@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { validationResult } from "express-validator";
+import ClientError from "../utils/ClientError";
 
 
 function validateRequest(req: Request, res: Response, next: NextFunction) {
@@ -7,8 +8,14 @@ function validateRequest(req: Request, res: Response, next: NextFunction) {
     if (errors.isEmpty()) {
         next();
     } else {
-        // Throw error: next(error);
-        return res.status(400).json({ errors: errors.array() });
+        const firstError = errors.array({ onlyFirstError: true })[0];
+        if (firstError.msg === 'username-check') {
+            next(ClientError.usernameInvalid());
+        } else if (firstError.msg === 'password-check') {
+            next(ClientError.passwordInvalid());
+        } else {
+            next(ClientError.genericInvalid(firstError.msg));
+        }
     }
 }
 
