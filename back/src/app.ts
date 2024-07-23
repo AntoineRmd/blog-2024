@@ -11,16 +11,16 @@ import errorHandler from './middlewares/errorHandler';
 const app = express();
 
 // Connect DB
-// connectDB();
-console.log('>>>>>>>> RECONECT DB!!! <<<<<<<<');
+connectDB();
 
 // Load environment variables
 dotenv.config();
 
 // Middleware: CORS
 app.use(cors({credentials: true, origin: process.env.FRONTEND_URL || "http://localhost:3000"}));
-// Middleware: JSON parser
+// Middleware: JSON parser & URL parser
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 // Middleware: cookie parser
 app.use(cookieParser());
 // Middleware: serving files endpoint
