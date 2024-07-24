@@ -6,6 +6,7 @@ import bcrypt from 'bcrypt';
 import ApiError from '../utils/ApiError';
 import jwt, { Secret } from 'jsonwebtoken';
 import { Result } from 'express-validator';
+import { NONAME } from 'dns';
 
 async function doesExist(username: string) {
     const user = await UserModel.findOne({ username: username });
@@ -35,6 +36,9 @@ async function register(req: Request, res: Response, next: NextFunction) {
 async function login(req: Request, res: Response, next: NextFunction) {
     const { username, password } = req.body;
     try {
+        if (req.cookies.sessionToken) {
+            throw ClientError.alreadyConnected();
+        }
         const user = await doesExist(username);
         if (!user) {
             throw ClientError.userNotFound();
@@ -54,6 +58,8 @@ async function login(req: Request, res: Response, next: NextFunction) {
     }
 }
 
-async function logout() {}
+async function logout(req: Request, res: Response, next: NextFunction) {
+    return null;
+}
 
 export default { register, login, logout };

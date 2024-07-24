@@ -37,6 +37,10 @@ class ClientError extends Error {
     }
 
     // 401
+    static alreadyConnected(message: string = "Already logged in") {
+        return new ClientError(401, message);
+    }
+
     static unauthorized(message: string = "Please log in to access this resource") {
         return new ClientError(401, message);
     }
