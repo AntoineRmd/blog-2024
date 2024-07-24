@@ -24,7 +24,7 @@ class ClientError extends Error {
         return new ClientError(400, message);
     }
 
-    static usernameMatch(message: string = "Username doesn’t exist") {
+    static userNotFound(message: string = "Username doesn’t exist") {
         return new ClientError(400, message);
     }
 

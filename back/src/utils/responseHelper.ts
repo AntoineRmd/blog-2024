@@ -11,8 +11,8 @@ class ResponseHelper {
         });
     }
 
-    static successLogin(res: Response, data?: any, message: string = "Logged in successfully"){
-        res.status(200).json({
+    static successLogin(res: Response, data?: any, sessionTokenCookie?: any,message: string = "Logged in successfully"){
+        res.status(200).cookie("sessionToken", sessionTokenCookie).json({
             success: true,
             message,
             data

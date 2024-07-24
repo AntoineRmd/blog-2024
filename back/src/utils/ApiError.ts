@@ -12,6 +12,10 @@ class ApiError extends Error {
         return new ApiError(500, message);
     }
 
+    static JWTGenerationFail(message: string = "JWT generation failed") {
+        return new ApiError(500, message);
+    }
+
     // 503
     static unavailable(message: string = "Service temporarily unavailable") {
         return new ApiError(503, message);
