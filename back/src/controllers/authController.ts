@@ -5,8 +5,6 @@ import ResponseHelper from '../utils/responseHelper';
 import bcrypt from 'bcrypt';
 import ApiError from '../utils/ApiError';
 import jwt, { Secret } from 'jsonwebtoken';
-import { Result } from 'express-validator';
-import { NONAME } from 'dns';
 
 async function doesExist(username: string) {
     const user = await UserModel.findOne({ username: username });
@@ -27,7 +25,6 @@ async function register(req: Request, res: Response, next: NextFunction) {
         const hashedPassword = await bcrypt.hash(password, salt);
         const newUser = await UserModel.create({ username, password: hashedPassword });
         ResponseHelper.successRegister(res, newUser);
-        
     } catch (err) {
         next(err);
     }
@@ -59,7 +56,11 @@ async function login(req: Request, res: Response, next: NextFunction) {
 }
 
 async function logout(req: Request, res: Response, next: NextFunction) {
-    return null;
+    try {
+        ResponseHelper.successLogout(res);
+    } catch (err) {
+        next(err);
+    }
 }
 
 export default { register, login, logout };

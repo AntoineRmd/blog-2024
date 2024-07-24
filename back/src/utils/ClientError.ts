@@ -41,7 +41,11 @@ class ClientError extends Error {
         return new ClientError(401, message);
     }
 
-    static unauthorized(message: string = "Please log in to access this resource") {
+    static disconnected(message: string = "Please log in to access this resource") {
+        return new ClientError(401, message);
+    }
+
+    static unauthorized(message: string = "Access unauthorized") {
         return new ClientError(401, message);
     }
 

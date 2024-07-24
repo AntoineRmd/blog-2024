@@ -20,7 +20,7 @@ class ResponseHelper {
     }
 
     static successLogout(res: Response, data?: any, message: string = "Logged out successfully"){
-        res.status(200).json({
+        res.status(200).clearCookie("sessionToken").json({
             success: true,
             message,
             data
