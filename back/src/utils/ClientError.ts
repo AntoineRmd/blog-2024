@@ -32,6 +32,10 @@ class ClientError extends Error {
         return new ClientError(400, message);
     }
 
+    static postIDInvalid(message: string = "Invalid post ID") {
+        return new ClientError(400, message);
+    }
+
     static genericInvalid(message: string = "Invalid field") {
         return new ClientError(400, message);
     }
@@ -55,6 +59,10 @@ class ClientError extends Error {
     }
 
     // 404
+    static postNotFound(message: string = "Post not found") {
+        return new ClientError(404, message);
+    }
+
     static notFound(message: string = "Not found") {
         return new ClientError(404, message);
     }

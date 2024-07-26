@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import authRoutes from './routes/authRoutes';
-// import postRoutes from './routes/postRoutes';
+import postRoutes from './routes/postRoutes'
 // import userRoutes from './routes/userRoutes';
 import errorHandler from './middlewares/errorHandler';
 
@@ -28,7 +28,7 @@ app.use('/uploads', express.static(process.cwd() + '/public/uploads'));
 
 // Routes
 app.use('/api/auth', authRoutes);
-// app.use('/api/posts', postRoutes);
+app.use('/api/post', postRoutes);
 // app.use('/api/user', userRoutes);
 
 // Error Handler End Middleware
