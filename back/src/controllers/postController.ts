@@ -34,4 +34,6 @@ async function getOne(req: Request, res: Response, next: NextFunction) {
     }
 }
 
-export default { getAll, getOne }
+async function create(req: Request, res: Response, next: NextFunction) {}
+
+export default { getAll, getOne, create }

@@ -36,6 +36,10 @@ class ClientError extends Error {
         return new ClientError(400, message);
     }
 
+    static fileTooLarge(message: string = "File is too large") {
+        return new ClientError(400, message);
+    }
+
     static genericInvalid(message: string = "Invalid field") {
         return new ClientError(400, message);
     }
