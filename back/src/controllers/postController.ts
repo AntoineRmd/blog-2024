@@ -63,4 +63,35 @@ async function create(req: Request, res: Response, next: NextFunction) {
     }
 }
 
-export default { getAll, getOne, create }
+async function edit(req: Request, res: Response, next: NextFunction) {
+    try {
+        const id = req.params.id;
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            throw ClientError.postIDInvalid();
+        }
+        const post = await PostModel.findById(id);
+        if (post === null) {
+            throw ClientError.postNotFound();
+        }
+        const decodedToken: JwtPayload = jwt.decode(req.cookies.sessionToken) as JwtPayload;
+        if (!decodedToken || !decodedToken.id) {
+            throw ClientError.unauthorized();
+        } else if (JSON.stringify(post.author) !== JSON.stringify(decodedToken.id)) {
+            throw ClientError.unauthorized();
+        }
+        let newPath = null;
+        if (req.file) {
+            const { originalname, path } = req.file;
+            const extension = originalname.split('.').pop();
+            newPath = `${path}.${extension}`;
+            fs.renameSync(path, newPath);
+        }
+        const { title, summary, content } = req.body;
+        const updatedPost = await PostModel.updateOne({ _id: id }, {title, summary, content, cover: newPath});
+        ResponseHelper.success(res, updatedPost);
+    } catch (err) {
+        next(err);
+    }
+}
+
+export default { getAll, getOne, create, edit }

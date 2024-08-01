@@ -14,4 +14,6 @@ router.get('/:id', postController.getOne);
 
 router.post('/', authCheck, checkSchema(postSchema), validateRequest, upload, postController.create);
 
+router.put('/:id', authCheck, checkSchema(postSchema), validateRequest, upload, postController.edit);
+
 export default router;
