@@ -13,6 +13,10 @@ function validateRequest(req: Request, res: Response, next: NextFunction) {
             next(ClientError.usernameInvalid());
         } else if (firstError.msg === 'password-check') {
             next(ClientError.passwordInvalid());
+        } else if (firstError.msg === 'title-check') {
+            next(ClientError.titleInvalid());
+        } else if (firstError.msg === 'summary-check') {
+            next(ClientError.genericInvalid('Invalid summary'));
         } else {
             next(ClientError.genericInvalid(firstError.msg));
         }

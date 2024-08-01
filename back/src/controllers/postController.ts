@@ -3,6 +3,8 @@ import PostModel from "../models/Post";
 import ResponseHelper from "../utils/responseHelper";
 import ClientError from "../utils/ClientError";
 import mongoose from "mongoose";
+import fs from "fs";
+import jwt, { JwtPayload } from "jsonwebtoken";
 
 async function getAll(req: Request, res: Response, next: NextFunction) {
     try {
@@ -34,6 +36,31 @@ async function getOne(req: Request, res: Response, next: NextFunction) {
     }
 }
 
-async function create(req: Request, res: Response, next: NextFunction) {}
+async function create(req: Request, res: Response, next: NextFunction) {
+    try {
+        let newPath = null;
+        if (req.file) {
+            const { originalname, path } = req.file;
+            const extension = originalname.split('.').pop();
+            newPath = `${path}.${extension}`;
+            fs.renameSync(path, newPath);
+        }
+        const { title, summary, content } = req.body;
+        const decodedToken: JwtPayload = jwt.decode(req.cookies.sessionToken) as JwtPayload;
+        if (!decodedToken || !decodedToken.id) {
+            throw ClientError.unauthorized();
+        }
+        const post = await PostModel.create({
+            title,
+            summary,
+            content,
+            cover: newPath,
+            author: decodedToken.id
+        })
+        ResponseHelper.successPostCreated(res, post);
+    } catch (err) {
+        next(err);
+    }
+}
 
 export default { getAll, getOne, create }

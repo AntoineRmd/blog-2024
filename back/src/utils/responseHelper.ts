@@ -36,7 +36,7 @@ class ResponseHelper {
         });
     }
 
-    static successPostCreate(res: Response, data?: any, message: string = "Post created successfully"){
+    static successPostCreated(res: Response, data?: any, message: string = "Post created successfully"){
         res.status(201).json({
             success: true,
             message,
@@ -44,7 +44,7 @@ class ResponseHelper {
         });
     }
 
-    static successPostEdit(res: Response, data?: any, message: string = "Post edited successfully"){
+    static successPostEdited(res: Response, data?: any, message: string = "Post edited successfully"){
         res.status(201).json({
             success: true,
             message,
@@ -52,7 +52,7 @@ class ResponseHelper {
         });
     }
 
-    static successProfileEdit(res: Response, data?: any, message: string = "Profile edited successfully"){
+    static successProfileEdited(res: Response, data?: any, message: string = "Profile edited successfully"){
         res.status(201).json({
             success: true,
             message,
@@ -60,7 +60,7 @@ class ResponseHelper {
         });
     }
 
-    static successProfileDelete(res: Response, data?: any, message: string = "Profile deleted successfully"){
+    static successProfileDeleted(res: Response, data?: any, message: string = "Profile deleted successfully"){
         res.status(201).json({
             success: true,
             message,
