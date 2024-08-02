@@ -87,8 +87,9 @@ async function edit(req: Request, res: Response, next: NextFunction) {
             fs.renameSync(path, newPath);
         }
         const { title, summary, content } = req.body;
-        const updatedPost = await PostModel.updateOne({ _id: id }, {title, summary, content, cover: newPath});
-        ResponseHelper.success(res, updatedPost);
+        await PostModel.updateOne({ _id: id }, {title, summary, content, cover: newPath});
+        const updatedPost = await PostModel.findById(id);
+        ResponseHelper.successPostEdited(res, updatedPost);
     } catch (err) {
         next(err);
     }
