@@ -1,9 +1,9 @@
 import { NextFunction, Request, Response } from "express";
 import ResponseHelper from "../utils/responseHelper";
 import jwt, { JwtPayload } from "jsonwebtoken";
-import mongoose from "mongoose";
 import ClientError from "../utils/ClientError";
 import UserModel from "../models/User";
+import bcrypt from "bcrypt";
 
 async function getSelf(req: Request, res: Response, next: NextFunction) {
     try {
@@ -28,8 +28,17 @@ async function getOne(req: Request, res: Response, next: NextFunction) {
     }
 }
 
-async function update(req: Request, res: Response, next: NextFunction) {}
+async function update(req: Request, res: Response, next: NextFunction) {
+    try {
+        const decodedToken: JwtPayload = jwt.decode(req.cookies.sessionToken) as JwtPayload;
+        const user = await UserModel.findById(decodedToken.id);
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(req.body.password, salt);
+        await UserModel.updateOne({ password: hashedPassword})
+        ResponseHelper.successProfileEdited(res);
+    } catch (err) {
+        next(err)
+    }
+}
 
-async function remove(req: Request, res: Response, next: NextFunction) {}
-
-export default { getSelf, getOne, update, remove };
+export default { getSelf, getOne, update };

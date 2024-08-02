@@ -59,14 +59,6 @@ class ResponseHelper {
             data
         });
     }
-
-    static successProfileDeleted(res: Response, data?: any, message: string = "Profile deleted successfully"){
-        res.status(201).json({
-            success: true,
-            message,
-            data
-        });
-    }
 }
 
 export default ResponseHelper;
