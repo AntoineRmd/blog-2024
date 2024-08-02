@@ -24,10 +24,6 @@ class ClientError extends Error {
         return new ClientError(400, message);
     }
 
-    static userNotFound(message: string = "Username doesn’t exist") {
-        return new ClientError(400, message);
-    }
-
     static passwordMatch(message: string = "Password doesn’t match") {
         return new ClientError(400, message);
     }
@@ -68,6 +64,10 @@ class ClientError extends Error {
 
     // 404
     static postNotFound(message: string = "Post not found") {
+        return new ClientError(404, message);
+    }
+
+    static userNotFound(message: string = "Username doesn’t exist") {
         return new ClientError(404, message);
     }
 

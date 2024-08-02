@@ -5,7 +5,7 @@ import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import authRoutes from './routes/authRoutes';
 import postRoutes from './routes/postRoutes'
-// import userRoutes from './routes/userRoutes';
+import userRoutes from './routes/userRoutes';
 import errorHandler from './middlewares/errorHandler';
 
 const app = express();
@@ -29,7 +29,7 @@ app.use('/uploads', express.static(process.cwd() + '/public/uploads'));
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/post', postRoutes);
-// app.use('/api/user', userRoutes);
+app.use('/api/user', userRoutes);
 
 // Error Handler End Middleware
 app.use(errorHandler);
