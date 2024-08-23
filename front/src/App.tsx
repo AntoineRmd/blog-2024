@@ -10,6 +10,7 @@ import CreatePostPage from "./pages/CreatePostPage"
 import EditPostPage from "./pages/EditPostPage"
 import ProfilePage from "./pages/ProfilePage"
 import EditProfilePage from "./pages/EditProfilePage"
+import UserContextProvider from "./hooks/useUser"
 
 const router = createBrowserRouter([
   {
@@ -45,7 +46,11 @@ const router = createBrowserRouter([
 ])
 
 function App() {
-  return <RouterProvider router={router} />
+  return (
+    <UserContextProvider>
+      <RouterProvider router={router} />
+    </UserContextProvider>
+  )
 }
 
 export default App
