@@ -37,7 +37,7 @@ const router = createBrowserRouter([
         element: <ProfileLayout />,
         children: [
           { path: "", element: <ProfilePage /> },
-          { path: ":id", element: <ProfilePage /> },
+          { path: ":username", element: <ProfilePage /> },
           { path: "edit", element: <EditProfilePage /> }
         ]
       }
