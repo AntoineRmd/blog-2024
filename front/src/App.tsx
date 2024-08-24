@@ -10,7 +10,7 @@ import CreatePostPage from "./pages/CreatePostPage"
 import EditPostPage from "./pages/EditPostPage"
 import ProfilePage from "./pages/ProfilePage"
 import EditProfilePage from "./pages/EditProfilePage"
-import UserContextProvider from "./hooks/useUser"
+import { UserContextProvider } from "./hooks/useUser"
 
 const router = createBrowserRouter([
   {
